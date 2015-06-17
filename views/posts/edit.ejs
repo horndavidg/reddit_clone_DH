@@ -1,0 +1,32 @@
+<% include ../partials/header %>
+  
+  <h1 class="text-center">Edit this Post!</h1>
+  <br>
+  <form action="/posts/<%= post._id%>?_method=put" class="form-inline text-center" method="POST">
+
+    <div class="form-group">
+      <label for="title">Title: </label>
+      <input type="text" name="post[title]" id="title" class="form-control" value="<%= post.title%>" autofocus>
+    </div>
+
+  <div class="form-group">
+    <label for="summary">Summary: </label>
+    <textarea name="post[summary]" rows="2" cols="30" id="summary" class="form-control"><%= post.summary%></textarea>
+  </div>
+
+    <div class="form-group">
+      <label for="link">Link: </label>
+      <input type="text" name="post[link]" id="link" class="form-control" value="<%= post.link%>">
+    </div>
+<br>
+<br>
+    <input type="submit" value="Update!" class="btn btn-info">
+  </form>
+  <br>
+   <form action="/posts/<%= post._id%>?_method=DELETE" class="form-inline text-center" method="POST">
+      <input type="submit" value="Delete Post!" class="btn btn-danger">
+    </form>
+    <br>
+  <a href="/posts">Go Home</a>
+
+  <% include ../partials/footer %>

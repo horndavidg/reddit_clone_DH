@@ -1,0 +1,32 @@
+<% include ../partials/header %>
+  
+  <h1 class="text-center">Edit this Comment!</h1>
+  <br>
+  <form action="/comments/<%= comment._id%>?_method=put" class="form-inline text-center" method="POST">
+   
+   <div class="form-group">
+      <label for="name">Your Name: </label>
+      <input type="text" name="comment[name]" id="name" class="form-control" value="<%= comment.name%>" autofocus>
+    </div>
+
+  <div class="form-group">
+    <label for="content">Comments: </label>
+    <textarea name="comment[content]" rows="4" cols="30" id="content" class="form-control"><%= comment.content%></textarea>
+  </div>
+
+<br>
+    <input type="submit" value="Update!" class="btn btn-info">
+  </form>
+<br>
+  <form action="/comments/<%= comment._id%>?_method=DELETE" class="form-inline text-center" method="POST">
+      <input type="submit" value="Delete Comment!" class="btn btn-danger">
+    </form>
+<br>
+   <a href="/posts/<%= comment.post%>/comments">Back to Comments Page</a>
+<br>
+<br>
+<a href="/posts">Go Home</a>
+
+
+
+  <% include ../partials/footer %>

@@ -23,6 +23,7 @@ app.get('/', function(req,res){
   res.redirect("/posts");
 });
 
+
 // INDEX //
 
 app.get('/posts', function(req,res){
@@ -35,15 +36,17 @@ app.get('/posts', function(req,res){
     else {
       res.render("posts/index", {posts:posts});
     }
-    
+
     });
 });
+
 
 // NEW //
 
 app.get('/posts/new', function(req,res){
   res.render("posts/new");
 });
+
 
 // CREATE //
 
@@ -59,39 +62,152 @@ app.post('/posts', function(req,res){
   });
 });
 
+// SHOW //
+
+app.get('/posts/:id', function(req,res){
+  db.Post.findById(req.params.id).populate('comments').exec(
+    function (err, post) {
+        res.render("posts/show", {post:post});
+    });
+});
 
 
+// EDIT //
+
+app.get('/posts/:id/edit', function(req,res){
+  db.Post.findById(req.params.id).populate('comments').exec(
+     function (err, post) {
+         res.render("posts/edit", {post:post});
+     });
+});
 
 
+// UPDATE //
+
+app.put('/posts/:id', function(req,res){
+ db.Post.findByIdAndUpdate(req.params.id, req.body.post,
+     function (err, post) {
+       if(err) {
+         res.render("posts/edit");
+       }
+       else {
+         res.redirect("/posts");
+       }
+     });
+});
 
 
+// DESTROY //
+
+app.delete('/posts/:id', function(req,res){
+  db.Post.findById(req.params.id,
+    function (err, post) {
+      if(err) {
+        console.log(err);
+        res.render("posts/show");
+      }
+      else {
+        post.remove();
+        res.redirect("/posts");
+      }
+    });
+});
 
 
+//******************* COMMENT ROUTES ***********************//
 
 
+// INDEX //
+
+app.get('/posts/:post_id/comments', function(req,res){
+  db.Post.findById(req.params.post_id).populate('comments').exec(function(err,post){
+    res.render("comments/index", {post:post});
+  });
+});
 
 
+// NEW //
+
+app.get('/posts/:post_id/comments/new', function(req,res){
+  db.Post.findById(req.params.post_id,
+    function (err, post) {
+      res.render("comments/new", {post:post});
+    });
+});
 
 
+// CREATE //
+
+app.post('/posts/:post_id/comments', function(req,res){
+  db.Comment.create(req.body.comment, function(err, comments){
+    if(err) {
+      console.log(err);
+      res.render("comments/new");
+    }
+    else {
+      db.Post.findById(req.params.post_id,function(err,post){
+        post.comments.push(comments);
+        comments.post = post._id;
+        comments.save();
+        post.save();
+        console.log(comments);
+        res.redirect("/posts/"+ req.params.post_id +"/comments");
+      });
+    }
+  });
+});
 
 
+// SHOW //
+
+app.get('/comments/:id', function(req,res){
+  db.Comment.findById(req.params.id)
+    .populate('post')
+    .exec(function(err,comment){
+      res.render("comments/show", {comment:comment});
+    });
+});
 
 
+// EDIT //
+
+app.get('/comments/:id/edit', function(req,res){
+  db.Comment.findById(req.params.id, function(err,comment){
+      res.render("comments/edit", {comment:comment});
+    });
+});
 
 
+// UPDATE //
+
+app.put('/comments/:id', function(req,res){
+ db.Comment.findByIdAndUpdate(req.params.id, req.body.comment,
+     function (err, comment) {
+      // console.log("Comment!", comment);
+       if(err) {
+         res.render("comments/edit");
+       }
+       else {
+         res.redirect("/posts/" + comment.post + "/comments");
+       }
+     });
+});
 
 
+// DESTROY //
 
-
-
-
-
-
-
-
-
-
-
+app.delete('/comments/:id', function(req,res){
+ db.Comment.findByIdAndRemove(req.params.id,
+      function (err, comment) {
+        if(err) {
+          console.log(err);
+          res.render("comments/edit");
+        }
+        else {
+          res.redirect("/posts/" + comment.post  + "/comments");
+        }
+      });
+});
 
 
 

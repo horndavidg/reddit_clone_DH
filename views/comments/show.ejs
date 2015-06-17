@@ -1,0 +1,25 @@
+<% include ../partials/header %>
+  
+  <h1 class="text-center">See comment made by: <strong><%= comment.name%></strong></h1>
+ 
+    
+    <blockquote>
+    <p> 
+      <%= comment.content%> 
+      </p>
+    </blockquote>
+
+
+  
+  <p>
+    <a href="/comments/<%= comment._id%>/edit">Edit this Comment</a>
+   
+  </p>
+  <p>
+    <a href="/posts/<%= comment.post._id%>/comments">See Comments Page</a>
+  </p> 
+  <p>
+    <a href="/posts">See all POSTS!</a>
+  </p>
+
+<% include ../partials/footer %>

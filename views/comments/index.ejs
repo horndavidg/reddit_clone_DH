@@ -1,0 +1,22 @@
+<% include ../partials/header %>
+  <h1 class="text-center">See all comments for: <strong><%= post.title%></strong></h1>
+  <% post.comments.forEach(function(comment){ %>
+     
+     <blockquote>
+     <p> 
+     <a href="/comments/<%= comment._id%>"><h4><%= comment.name%> says:</h4></a>   
+      <%= comment.content%> 
+      </p>
+      </blockquote>
+
+  <% })%>
+<br>
+  <a href="/posts/<%= post.id%>/comments/new">Add a new Comment!</a>
+<br>
+<br>
+  <a href="/posts/new">Add a new Post!</a>
+<br>
+<br>
+<a href="/posts">Go Home!</a>
+
+<% include ../partials/footer %>
