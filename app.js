@@ -28,13 +28,36 @@ app.get('/', function(req,res){
 app.get('/posts', function(req,res){
   db.Post.find({},
     function (err, posts) {
+       if(err) {
+      console.log(err);
+      res.render("errors/500");
+    }
+    else {
       res.render("posts/index", {posts:posts});
+    }
+    
     });
 });
 
+// NEW //
 
+app.get('/posts/new', function(req,res){
+  res.render("posts/new");
+});
 
+// CREATE //
 
+app.post('/posts', function(req,res){
+  db.Post.create(req.body.post, function(err, post){
+    if(err) {
+      console.log(err);
+      res.render("posts/new");
+    }
+    else {
+      res.redirect("/posts");
+    }
+  });
+});
 
 
 
