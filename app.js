@@ -307,97 +307,7 @@ app.listen(3000, function(){
 // NOTES! **********************************************
 
 
-// // ROOT
-// app.get('/', function(req,res){
-//   res.redirect("/zoos");
-// });
 
-// // INDEX
-// app.get('/zoos', function(req,res){
-//   db.Zoo.find({},
-//     function (err, zoos) {
-//       res.render("zoos/index", {zoos:zoos});
-//     });
-// });
-
-// // NEW
-// app.get('/zoos/new', function(req,res){
-//   res.render("zoos/new");
-// });
-
-// // CREATE
-// app.post('/zoos', function(req,res){
-//   db.Zoo.create(req.body.zoo, function(err, zoo){
-//     if(err) {
-//       console.log(err);
-//       res.render("zoos/new");
-//     }
-//     else {
-//       res.redirect("/zoos");
-//     }
-//   });
-// });
-
-// // SHOW
-// app.get('/zoos/:id', function(req,res){
-//   db.Zoo.findById(req.params.id).populate('animals').exec(
-//     function (err, zoo) {
-//         res.render("zoos/show", {zoo:zoo});
-//     });
-// });
-
-// // EDIT
-// app.get('/zoos/:id/edit', function(req,res){
-//   db.Zoo.findById(req.params.id).populate('animals').exec(
-//      function (err, zoo) {
-//          res.render("zoos/edit", {zoo:zoo});
-//      });
-// });
-
-// // UPDATE
-// app.put('/zoos/:id', function(req,res){
-//  db.Zoo.findByIdAndUpdate(req.params.id, req.body.zoo,
-//      function (err, zoo) {
-//        if(err) {
-//          res.render("zoos/edit");
-//        }
-//        else {
-//          res.redirect("/zoos");
-//        }
-//      });
-// });
-
-// // DESTROY
-// app.delete('/zoos/:id', function(req,res){
-//   db.Zoo.findById(req.params.id,
-//     function (err, zoo) {
-//       if(err) {
-//         console.log(err);
-//         res.render("zoos/show");
-//       }
-//       else {
-//         zoo.remove();
-//         res.redirect("/zoos");
-//       }
-//     });
-// });
-
-// /********* Animals ROUTES *********/
-
-// // INDEX
-// app.get('/zoos/:zoo_id/animals', function(req,res){
-//   db.Zoo.findById(req.params.zoo_id).populate('animals').exec(function(err,zoo){
-//     res.render("animals/index", {zoo:zoo});
-//   });
-// });
-
-// // NEW
-// app.get('/zoos/:zoo_id/animals/new', function(req,res){
-//   db.Zoo.findById(req.params.zoo_id,
-//     function (err, zoo) {
-//       res.render("animals/new", {zoo:zoo});
-//     });
-// });
 
 // // CREATE
 // app.post('/zoos/:zoo_id/animals', function(req,res){
@@ -460,14 +370,4 @@ app.listen(3000, function(){
 //           res.redirect("/zoos/" + animal.zoo  + "/animals");
 //         }
 //       });
-// });
-
-// // CATCH ALL
-// app.get('*', function(req,res){
-//   res.render('errors/404');
-// });
-
-// // START SERVER
-// app.listen(3000, function(){
-//   console.log("Server is listening on port 3000");
 // });
