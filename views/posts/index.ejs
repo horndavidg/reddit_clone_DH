@@ -1,6 +1,11 @@
 <% include ../partials/header %>
+  
   <h1 class="text-center">See all our Posts!</h1>
+  
   <% posts.forEach(function(post){ %>
+    
+<blockquote>
+
     <p>
       <h3><a href="/posts/<%= post._id%>"><%= post.title%></a></h3>
     </p>
@@ -12,6 +17,8 @@
     </p>
         
     <p> <%= post.comments.content%> </p>
+
+</blockquote>
 
   <% })%>
 <br>
