@@ -5,6 +5,7 @@ var postSchema = new mongoose.Schema({
                     title: String,
                     summary: String,
                     link: String,
+                    ownerId: String,
                     comments: [{
                       type: mongoose.Schema.Types.ObjectId,
                       ref: "Comment"

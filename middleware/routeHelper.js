@@ -10,10 +10,21 @@ var routeHelpers = {
     }
   },
 
-  ensureCorrectUser: function(req, res, next) {
-    db.Country.findById(req.params.id, function(err,country){
-      if (country.ownerId !== req.session.id) {
-        res.redirect('/country');
+  ensureCorrectUserP: function(req, res, next) {
+    db.Post.findById(req.params.id, function(err,post){
+      if (post.ownerId !== req.session.id) {
+        res.redirect('/posts');
+      }
+      else {
+       return next();
+      }
+    });
+  },
+
+   ensureCorrectUserC: function(req, res, next) {
+    db.Comment.findById(req.params.id, function(err,comment){
+      if (comment.ownerId !== req.session.id) {
+        res.redirect('/posts');
       }
       else {
        return next();
@@ -23,7 +34,7 @@ var routeHelpers = {
 
   preventLoginSignup: function(req, res, next) {
     if (req.session.id !== null && req.session.id !== undefined) {
-      res.redirect('/country');
+      res.redirect('/posts');
     }
     else {
      return next();
